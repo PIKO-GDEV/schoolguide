@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دليل المدرسة | School Guide</title>
+<style>
+:root{--bg:#fff;--ink:#16211b;--green:#0f5132;--green2:#e3f1e9;--amber:#f2b705;--line:#cfd8d2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1511;--ink:#f1f5f2;--green:#6fd1a0;--green2:#1a2a21;--line:#2c3c33}}
+:root[data-theme="dark"]{--bg:#0e1511;--ink:#f1f5f2;--green:#6fd1a0;--green2:#1a2a21;--line:#2c3c33}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Noto Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;max-width:560px;margin:0 auto;padding:14px}
+#school{font-size:20px;font-weight:800;margin-bottom:10px;color:var(--green)}
+.langs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.langs button{font:inherit;font-size:14px;padding:6px 12px;border:1.5px solid var(--line);border-radius:999px;background:none;color:var(--ink)}
+.langs button[aria-pressed=true]{background:var(--green);color:var(--bg);border-color:var(--green)}
+.here{background:var(--amber);color:#1a1400;border-radius:14px;padding:14px 16px;font-size:clamp(20px,6vw,26px);font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.here button{font:inherit;font-size:28px;border:0;background:#1a1400;color:var(--amber);border-radius:50%;width:54px;height:54px;flex:none}
+h2{font-size:clamp(20px,5.5vw,24px);margin:18px 0 10px}
+.opts{display:grid;gap:10px}
+.opts button{font:inherit;display:flex;align-items:center;gap:14px;text-align:start;padding:10px 14px;border:2.5px solid var(--green);border-radius:14px;background:var(--green2);color:var(--ink);font-size:clamp(20px,5.8vw,26px);font-weight:600;min-height:72px}
+.opts button[aria-pressed=true]{background:var(--green);color:var(--bg)}
+.num{flex:none;width:48px;height:48px;border-radius:50%;background:var(--green);color:var(--bg);display:grid;place-items:center;font-size:28px;font-weight:800}
+.opts button[aria-pressed=true] .num{background:var(--bg);color:var(--green)}
+.ico{font-size:30px;margin-inline-start:auto}
+#mapbox{margin-top:16px;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:var(--green2)}
+#mapbox[hidden]{display:none}
+svg{display:block;width:100%;height:auto;direction:ltr}
+.room{fill:var(--bg);stroke:var(--green);stroke-width:2}
+.room.target{fill:var(--amber);stroke:#1a1400;stroke-width:3}
+.lbl{font-size:15px;font-weight:700;fill:var(--ink);text-anchor:middle}
+.route{fill:none;stroke:#1a7f4b;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:4 14;animation:flow 1s linear infinite}
+.you{fill:#d62828}
+@keyframes flow{to{stroke-dashoffset:-18}}
+@media (prefers-reduced-motion:reduce){.route{animation:none}}
+#steps{padding:12px 16px;font-size:clamp(18px,5vw,22px);font-weight:600}
+.sos{display:block;margin-top:16px;text-align:center;padding:16px;border-radius:14px;background:#b3261e;color:#fff;font-size:clamp(20px,5.6vw,24px);font-weight:700;text-decoration:none}
+.tools{display:flex;gap:8px;margin-bottom:12px}
+.tools button{flex:1;font:inherit;font-size:clamp(16px,4.5vw,19px);font-weight:700;padding:12px 8px;border-radius:12px;border:2.5px solid var(--green);background:none;color:var(--ink)}
+.tools button[aria-pressed=true]{background:var(--green);color:var(--bg)}
+#help[hidden]{display:none}
+#help{display:grid;gap:10px;margin-bottom:12px}
+#help button{font:inherit;padding:14px;border-radius:14px;border:2.5px solid var(--amber);background:var(--green2);color:var(--ink);text-align:center}
+#help b{display:block;font-size:clamp(24px,7vw,32px)}
+#help small{display:block;font-size:15px;opacity:.85;margin-top:4px}
+body.acc{font-size:22px}
+body.acc .opts button,body.acc .tools button{border-width:4px}
+body.acc .opts button{font-size:clamp(26px,7vw,32px);min-height:90px}
+body.acc .here,body.acc .sos{font-size:clamp(24px,6.5vw,30px)}
+body.acc #steps{font-size:clamp(22px,6vw,28px)}
+.acts{display:flex;gap:8px;padding:0 16px 14px}
+.acts button{font:inherit;font-size:clamp(18px,5vw,22px);font-weight:700;padding:12px 16px;border-radius:12px;border:2.5px solid var(--green);background:none;color:var(--ink)}
+#done{flex:1}
+button:focus-visible,a:focus-visible{outline:4px solid var(--amber);outline-offset:2px}
+</style>
+</head>
+<body>
+<div id="school"></div>
+<div class="langs" id="langs"></div>
+<div class="tools"><button id="accb" aria-pressed="false"></button><button id="helpb" aria-pressed="false"></button></div>
+<div id="help" hidden></div>
+<div class="here"><span id="here"></span><button id="speak" aria-label="🔊">🔊</button></div>
+<h2 id="q"></h2>
+<div class="opts" id="opts"></div>
+<div id="mapbox" hidden>
+<svg viewBox="0 0 400 300" role="img" aria-label="map"><g id="layer"></g><polyline class="route" id="route" points=""/><g id="youg"></g></svg>
+<div id="steps"></div>
+<div class="acts"><button id="replay">🔊</button><button id="done"></button></div>
+</div>
+<a class="sos" id="sos" href="tel:0500000000"></a>
+<script>
+var T={
+ar:{n:"العربية",done:"✅ وصلت",dir:"rtl",here:"أنت الآن في الممر الرئيسي",q:"اختر رقم المكان الذي تريده",you:"أنت هنا",go:function(d){return "اتبع الخط الأخضر على الخريطة إلى "+d},sos:"📞 اتصل بمن يساعدك",acc:"♿ وصول ميسّر",help:"🆘 أحتاج مساعدة",lost:"أنا تائه، أرجو مساعدتي",where:function(d){return 'أين '+d+'؟'}},
+en:{n:"English",done:"✅ I have arrived",dir:"ltr",here:"You are in the main corridor",q:"Tap the number of the place you want",you:"You are here",go:function(d){return "Follow the green line on the map to "+d},sos:"📞 Call for help",acc:"♿ Accessibility",help:"🆘 I need help",lost:"I am lost. Please help me.",where:function(d){return 'Where is: '+d+'?'}},
+ur:{n:"اردو",done:"✅ میں پہنچ گیا",dir:"rtl",here:"آپ اس وقت مرکزی راہداری میں ہیں",q:"جہاں جانا ہے اس کا نمبر دبائیں",you:"آپ یہاں ہیں",go:function(d){return "نقشے پر سبز لکیر کے ساتھ "+d+" تک جائیں"},sos:"📞 مدد کے لیے کال کریں",acc:"♿ آسان رسائی",help:"🆘 مجھے مدد چاہیے",lost:"میں کھو گیا ہوں، براہِ کرم مدد کریں",where:function(d){return d+' کہاں ہے؟'}},
+id:{n:"Indonesia",done:"✅ Saya sudah sampai",dir:"ltr",here:"Anda berada di koridor utama",q:"Tekan nomor tempat yang Anda tuju",you:"Anda di sini",go:function(d){return "Ikuti garis hijau di peta menuju "+d},sos:"📞 Hubungi bantuan",acc:"♿ Aksesibilitas",help:"🆘 Saya butuh bantuan",lost:"Saya tersesat. Tolong bantu saya.",where:function(d){return 'Di mana '+d+'?'}},
+tr:{n:"Türkçe",done:"✅ Vardım",dir:"ltr",here:"Şu anda ana koridordasınız",q:"Gitmek istediğiniz yerin numarasına dokunun",you:"Buradasınız",go:function(d){return "Haritadaki yeşil çizgiyi izleyin: "+d},sos:"📞 Yardım için arayın",acc:"♿ Erişilebilirlik",help:"🆘 Yardım istiyorum",lost:"Kayboldum. Lütfen yardım edin.",where:function(d){return d+' nerede?'}},
+fa:{n:"فارسی",dir:"rtl",done:"✅ رسیدم",here:"شما اکنون در راهرو اصلی هستید",q:"شماره مکان مورد نظر را لمس کنید",you:"شما اینجا هستید",go:function(d){return "خط سبز روی نقشه را تا "+d+" دنبال کنید"},sos:"📞 برای کمک تماس بگیرید",acc:"♿ دسترسی آسان",help:"🆘 به کمک نیاز دارم",lost:"من گم شده‌ام، لطفاً کمکم کنید",where:function(d){return d+' کجاست؟'}},
+fr:{n:"Français",dir:"ltr",done:"✅ Je suis arrivé",here:"Vous êtes dans le couloir principal",q:"Appuyez sur le numéro du lieu souhaité",you:"Vous êtes ici",go:function(d){return "Suivez la ligne verte sur la carte jusqu'à "+d},sos:"📞 Appeler à l'aide",acc:"♿ Accessibilité",help:"🆘 J'ai besoin d'aide",lost:"Je suis perdu. Aidez-moi, s'il vous plaît.",where:function(d){return 'Où se trouve : '+d+' ?'}}
+};
+/* ===== CONFIG: التعديل يكون هنا فقط | Edit only this block ===== */
+var CONFIG={
+ schoolName:"دليل المدرسة الذكي",   // اسم المدرسة
+ speechCooldownMs:4000,                // مدة الانتظار بين كل نطق وآخر (بالملي ثانية)
+ helpPhone:"0500000000",               // رقم المساعدة
+ signs:{                               // اللوحات: كل QR له رابط ?sign=اسم_اللوحة
+  main:{
+   you:{x:200,y:190}                   // موقع اللوحة على الخريطة
+   // here:{ar:"..."}  نص مخصص للمكان (اختياري) | routes:[...] مسارات مختلفة (اختياري)
+  }
+ },
+ patches:[                             // معالم الأرضية (البقع الملونة)
+  {x:55,y:150,w:95,h:50,color:"#9ed8b0"},
+  {x:215,y:105,w:85,h:45,color:"#8fc1e0"}
+ ],
+ places:[                              // ترتيب المكان = رقم الزر
+  {icon:"🚻",room:{x:330,y:150,w:55,h:75},label:{x:357,y:192,size:12},route:[[200,190],[330,188]],
+   names:{ar:"الحمامات",en:"Restrooms",ur:"بیت الخلا",id:"Toilet",tr:"Tuvaletler",fa:"سرویس بهداشتی",fr:"Toilettes"}},
+  {icon:"🧭",room:{x:15,y:50,w:100,h:80},label:{x:65,y:95},route:[[200,190],[65,190],[65,130]],
+   names:{ar:"مكتب التوجيه",en:"Guidance office",ur:"گائینس آفس",id:"Ruang bimbingan",tr:"Rehberlik odası",fa:"دفتر راهنمایی",fr:"Bureau d'orientation"}},
+  {icon:"🏢",room:{x:140,y:240,w:120,h:50},label:{x:200,y:270},route:[[200,190],[200,240]],
+   names:{ar:"مكتب الإدارة",en:"Administration office",ur:"انتظامیہ کا دفتر",id:"Kantor administrasi",tr:"İdare ofisi",fa:"دفتر مدیریت",fr:"Bureau de l'administration"}},
+  {icon:"🚪",room:{x:270,y:15,w:115,h:60},label:{x:327,y:50},route:[[200,190],[250,190],[250,100],[327,100],[327,75]],
+   names:{ar:"بوابة الخروج",en:"Exit gate",ur:"باہر نکلنے کا دروازہ",id:"Pintu keluar",tr:"Çıkış kapısı",fa:"درب خروج",fr:"Porte de sortie"}}
+ ]
+};
+/* ===== نهاية الإعدادات | End of config ===== */
+var ICONS=CONFIG.places.map(function(p){return p.icon});
+var SIGN=new URLSearchParams(location.search).get("sign")||"main";
+var S=CONFIG.signs[SIGN]||CONFIG.signs.main;
+var ROUTES=S.routes||CONFIG.places.map(function(p){return p.route});
+var VL={ar:"ar-SA",en:"en-US",ur:"ur-PK",id:"id-ID",tr:"tr-TR",fa:"fa-IR",fr:"fr-FR"};
+function hereText(){return (S.here&&S.here[L])||T[L].here}
+function fit(tx,name,room,mx,y){
+ var av=room.w-8,fs=mx,lines=[name];
+ if(name.length*.6*fs>av){var w=name.split(" ");if(w.length>1){var h=Math.ceil(w.length/2);lines=[w.slice(0,h).join(" "),w.slice(h).join(" ")]}}
+ var lg=Math.max.apply(null,lines.map(function(l){return l.length}));
+ fs=Math.max(9,Math.min(mx,Math.floor(av/(lg*.6))));
+ tx.style.fontSize=fs+"px";tx.textContent="";
+ tx.setAttribute("y",lines.length>1?y-(fs+2)/2:y);
+ lines.forEach(function(l,i){var t=document.createElementNS("http://www.w3.org/2000/svg","tspan");t.setAttribute("x",tx.getAttribute("x"));t.setAttribute("dy",i?fs+2:0);t.textContent=l;tx.appendChild(t)});
+}
+Object.keys(T).forEach(function(k){T[k].o=CONFIG.places.map(function(p){return p.names[k]})});
+function buildMap(){
+ var h="",y=S.you;
+ CONFIG.patches.forEach(function(p){h+='<rect x="'+p.x+'" y="'+p.y+'" width="'+p.w+'" height="'+p.h+'" fill="'+p.color+'" opacity=".7"/>'});
+ CONFIG.places.forEach(function(p,i){var r=p.room,l=p.label;
+  h+='<rect class="room" id="r'+(i+1)+'" x="'+r.x+'" y="'+r.y+'" width="'+r.w+'" height="'+r.h+'" rx="6"/>';
+  h+='<text class="lbl" id="t'+(i+1)+'" x="'+l.x+'" y="'+l.y+'"'+(l.size?' style="font-size:'+l.size+'px"':'')+'></text>'});
+ $("layer").innerHTML=h;
+ $("youg").innerHTML='<circle class="you" cx="'+y.x+'" cy="'+y.y+'" r="13"/><circle cx="'+y.x+'" cy="'+y.y+'" r="5" fill="#fff"/><text class="lbl" id="tyou" x="'+y.x+'" y="'+(y.y+32)+'"></text>';
+ $("school").textContent=CONFIG.schoolName;$("sos").href="tel:"+CONFIG.helpPhone;
+}
+var L="en",sel=-1,langsEl=document.getElementById("langs");
+var pref=(navigator.language||"en").slice(0,2).toLowerCase();
+if(T[pref])L=pref;
+var q=new URLSearchParams(location.search).get("lang");
+if(q&&T[q])L=q;
+function $(i){return document.getElementById(i)}
+var lastSay={};
+function canSpeak(k){var n=Date.now();if(lastSay[k]&&n-lastSay[k]<CONFIG.speechCooldownMs)return false;lastSay[k]=n;return true}
+function say(text,key){
+ if(!canSpeak(key||"x"))return;
+ try{if(!window.speechSynthesis)return;speechSynthesis.cancel();
+ var u=new SpeechSynthesisUtterance(text);u.lang=VL[L]||"en-US";u.rate=.85;speechSynthesis.speak(u)}catch(e){}
+}
+function render(){
+ var t=T[L];
+ document.documentElement.lang=L;document.documentElement.dir=t.dir;
+ $("here").textContent="📍 "+hereText();$("speak").setAttribute("aria-label",t.q);$("done").textContent=t.done;$("replay").setAttribute("aria-label",t.go(""));$("sos").style.display=CONFIG.helpPhone?"":"none";$("q").textContent=t.q;$("sos").textContent=t.sos;$("tyou").textContent=t.you;$("accb").textContent=t.acc;$("helpb").textContent=t.help;
+ langsEl.innerHTML="";
+ Object.keys(T).forEach(function(k){var b=document.createElement("button");b.textContent=T[k].n;b.setAttribute("aria-pressed",k===L);b.onclick=function(){L=k;render();say(hereText()+". "+T[L].q,"lang"+k)};langsEl.appendChild(b)});
+ var o=$("opts");o.innerHTML="";
+ t.o.forEach(function(name,i){
+  var b=document.createElement("button");b.setAttribute("aria-pressed",i===sel);
+  b.innerHTML='<span class="num">'+(i+1)+'</span><span>'+name+'</span><span class="ico">'+ICONS[i]+'</span>';
+  b.onclick=function(){choose(i)};o.appendChild(b);
+  var pl=CONFIG.places[i];fit($("t"+(i+1)),name,pl.room,pl.label.size||15,pl.label.y);
+ });
+ if(sel>=0)drawRoute();
+ if(!$("help").hidden)buildHelp();
+}
+function drawRoute(){
+ $("mapbox").hidden=false;
+ CONFIG.places.forEach(function(p,n){$("r"+(n+1)).setAttribute("class","room"+(n===sel?" target":""))});
+ $("route").setAttribute("points",ROUTES[sel].map(function(p){return p.join(",")}).join(" "));
+ $("steps").textContent="➡️ "+T[L].go(T[L].o[sel]);
+}
+function choose(i){
+ sel=i;render();try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
+ say(T[L].go(T[L].o[i]),"opt"+i);
+ $("mapbox").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+
+function sayAr(x,key){if(!canSpeak(key))return;try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(x);u.lang="ar-SA";u.rate=.85;speechSynthesis.speak(u)}catch(e){}}
+function buildHelp(){
+ var h=$("help");h.innerHTML="";var A=T.ar,U=T[L],items=[[A.lost,U.lost]];
+ A.o.forEach(function(d,i){items.push([A.where(d),U.where(U.o[i])])});
+ items.forEach(function(p){var b=document.createElement("button");b.innerHTML="<b>"+p[0]+"</b><small>"+p[1]+"</small>";b.onclick=function(){sayAr(p[0],"help"+p[0]);try{navigator.vibrate&&navigator.vibrate(150)}catch(e){}};h.appendChild(b)});
+}
+$("accb").onclick=function(){var on=document.body.classList.toggle("acc");$("accb").setAttribute("aria-pressed",on)};
+$("helpb").onclick=function(){var h=$("help");h.hidden=!h.hidden;$("helpb").setAttribute("aria-pressed",!h.hidden);if(!h.hidden)buildHelp()};
+$("replay").onclick=function(){if(sel>=0)say(T[L].go(T[L].o[sel]),"replay")};
+$("done").onclick=function(){sel=-1;$("mapbox").hidden=true;render();window.scrollTo({top:0,behavior:"smooth"})};
+$("speak").onclick=function(){say(hereText()+". "+T[L].q,"listen")};
+document.addEventListener("keydown",function(e){var n=parseInt(e.key,10);if(n>=1&&n<=CONFIG.places.length)choose(n-1)});
+buildMap();render();
+</script>
+</body>
+</html>
